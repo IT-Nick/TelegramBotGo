@@ -1,4 +1,4 @@
-package TelegramBotGo
+package main
 
 import (
 "log"
