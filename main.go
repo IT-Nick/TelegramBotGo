@@ -1,4 +1,4 @@
-package TelegramBotGo
+package main
 
 import (
 "log"
@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	bot, err := tgbotapi.NewBotAPI("MyAwesomeBotToken")
+	bot, err := tgbotapi.NewBotAPI("2024173290:AAGazXdG40Bu1l1Td1L7pK1SjcbJTUkBvwg")
 	if err != nil {
 		log.Fatal(err)
 	}
