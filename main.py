@@ -1,13 +1,14 @@
 import logging
 import os
-from aiogram.utils import executor
-from create import dp, TOKEN
-from handlers import client
-from threads import check_triggers, broadcast
-from aiogram import asyncio
-from triggers.triggerFinanz import TriggerFinanz
+from aiogram import Bot
+from aiogram.dispatcher import Dispatcher
 from aiogram.utils.executor import start_webhook
+from aiogram import Bot, types
 
+
+TOKEN = os.getenv('BOT_TOKEN')
+bot = Bot(token=TOKEN)
+dp = Dispatcher(bot)
 
 HEROKU_APP_NAME = os.getenv('HEROKU_APP_NAME')
 
@@ -20,26 +21,28 @@ WEBHOOK_URL = f'{WEBHOOK_HOST}{WEBHOOK_PATH}'
 WEBAPP_HOST = '0.0.0.0'
 WEBAPP_PORT = os.getenv('PORT', default=8000)
 
+
 async def on_startup(dispatcher):
-    print("sd")
+    await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
 
 
-
-    
-    
-interval_broadcast = 20
-interval_triggers = 10
-
-trigger = TriggerFinanz()
-trigger.set_current_price()
-
-client.register_handlers(dp)
-
-loop = asyncio.get_event_loop()
-loop.create_task(broadcast(interval_broadcast, trigger))
-loop.create_task(check_triggers(interval_triggers, trigger))
-
-executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
+async def on_shutdown(dispatcher):
+    await bot.delete_webhook()
 
 
+@dp.message_handler()
+async def echo(message: types.Message):
+    await message.answer(message.text)
 
+
+ if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+    start_webhook(
+        dispatcher=dp,
+        webhook_path=WEBHOOK_PATH,
+        skip_updates=True,
+        on_startup=on_startup,
+        on_shutdown=on_shutdown,
+        host=WEBAPP_HOST,
+        port=WEBAPP_PORT,
+    )
