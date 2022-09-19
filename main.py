@@ -21,7 +21,15 @@ WEBAPP_HOST = '0.0.0.0'
 WEBAPP_PORT = os.getenv('PORT', default=8000)
 
 async def on_startup(dispatcher):
-    await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
+   interval_broadcast = 20
+   interval_triggers = 10
+   trigger = TriggerFinanz()
+   trigger.set_current_price()
+   client.register_handlers(dp)
+   loop = asyncio.get_event_loop()
+   loop.create_task(broadcast(interval_broadcast, trigger))
+   loop.create_task(check_triggers(interval_triggers, trigger))
+   await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
 
 async def on_shutdown(dispatcher):
     await bot.delete_webhook()    
@@ -34,14 +42,6 @@ async def on_shutdown(dispatcher):
 
 
 if __name__ == '__main__':
-   interval_broadcast = 20
-   interval_triggers = 10
-   trigger = TriggerFinanz()
-   trigger.set_current_price()
-   client.register_handlers(dp)
-   loop = asyncio.get_event_loop()
-   loop.create_task(broadcast(interval_broadcast, trigger))
-   loop.create_task(check_triggers(interval_triggers, trigger))
    logging.basicConfig(level=logging.INFO)
    start_webhook(
        dispatcher=dp,
