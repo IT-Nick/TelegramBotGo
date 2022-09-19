@@ -1,7 +1,7 @@
 import logging
 import os
 from aiogram.utils import executor
-from create import dp, TOKEN
+from create import dp, TOKEN, bot
 from handlers import client
 from threads import check_triggers, broadcast
 from aiogram import asyncio
