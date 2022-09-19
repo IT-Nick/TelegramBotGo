@@ -28,23 +28,20 @@ async def on_shutdown(dispatcher):
 
 
     
-    
-interval_broadcast = 20
-interval_triggers = 10
-
-trigger = TriggerFinanz()
-trigger.set_current_price()
-
-client.register_handlers(dp)
-
-loop = asyncio.get_event_loop()
-loop.create_task(broadcast(interval_broadcast, trigger))
-loop.create_task(check_triggers(interval_triggers, trigger))
+   
 
 #executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
 
 
 if __name__ == '__main__':
+   interval_broadcast = 20
+   interval_triggers = 10
+   trigger = TriggerFinanz()
+   trigger.set_current_price()
+   client.register_handlers(dp)
+   loop = asyncio.get_event_loop()
+   loop.create_task(broadcast(interval_broadcast, trigger))
+   loop.create_task(check_triggers(interval_triggers, trigger))
    logging.basicConfig(level=logging.INFO)
    start_webhook(
        dispatcher=dp,
