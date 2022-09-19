@@ -21,10 +21,8 @@ WEBAPP_HOST = '0.0.0.0'
 WEBAPP_PORT = os.getenv('PORT', default=8000)
 
 async def on_startup(dispatcher):
-    await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
+    print("sd")
 
-async def on_shutdown(dispatcher):
-    await bot.delete_webhook()    
 
 
     
@@ -41,17 +39,7 @@ loop = asyncio.get_event_loop()
 loop.create_task(broadcast(interval_broadcast, trigger))
 loop.create_task(check_triggers(interval_triggers, trigger))
 
-#executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
+executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
 
 
- if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
-    start_webhook(
-        dispatcher=dp,
-        webhook_path=WEBHOOK_PATH,
-        skip_updates=True,
-        on_startup=on_startup,
-        on_shutdown=on_shutdown,
-        host=WEBAPP_HOST,
-        port=WEBAPP_PORT,
-    )
+
