@@ -4,8 +4,8 @@ from currency import ParsingInvesting
 class TriggerInvesting:
     finanz = ParsingInvesting()
 
-    percent_currency = 10  # 1. Валютные – (любой скачек от 10%)
-    percent_metals = 2.75  # 2. Драгоценные металлы - 2,75%
+    percent_currency = 0.1  # 1. Валютные – (любой скачек от 10%)
+    percent_metals = 0.1  # 2. Драгоценные металлы - 2,75%
     percent_materials = 4.27  # 3. Основные материалы - 4,23%
 
     difference_currency = {}  # Изначальная сумма + процент
