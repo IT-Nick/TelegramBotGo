@@ -44,7 +44,7 @@ class ParsingInvesting:
         soup = bs(full_page.content, "html.parser")
         for metal_code in self.METALS_CODES.keys():
             element_curr = soup.find("td", {"class": self.METALS_CODES.get(metal_code)})
-            total_price = element_curr.text.replace("Т", "").replace(" ", "").replace(".", " ").replace(",", ".")
+            total_price = element_curr.text.replace("Т", "").replace(" ", "").replace(".", "").replace(",", ".")
             print(metal_code + ": " + total_price)
             results_met[metal_code] = total_price
         return results_met
