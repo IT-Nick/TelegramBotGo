@@ -51,7 +51,7 @@ class ParsingInvesting:
 
     def get_materials_price(self):
         results_mat = {}
-        extra_url = 'birzhevyye-tovary/v-realnom-vremeni'
+        extra_url = 'commodities/softs'
         full_page = requests.get(self.BASE_URL + extra_url, headers=self.headers)
         soup = bs(full_page.content, "html.parser")
         for metal_code in self.MATERIALS_CODES.keys():
