@@ -55,7 +55,7 @@ class TriggerFinanz:
                 percent) + "%)\nНовая стоимость: " + current)
         elif float(current) <= float(start_price) - float(difference):
             err = True
-            msg.append("Стоимость " + cur_name + " упала меньше чем на " + difference + " рублей! (" + str(
+            msg.append("Стоимость " + cur_name + " упала больше чем на " + difference + " рублей! (" + str(
                 percent) + "%)\nНовая стоимость: " + current)
         return err
 
