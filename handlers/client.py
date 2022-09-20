@@ -17,7 +17,8 @@ async def command_start(message: types.Message):
     keyboard_markup.add(*(types.KeyboardButton(text) for text in more_btns_text))
 
     await message.reply("Привет! 👋\nТы был подключен к общей рассылке биржевой информации! \n\nТы можешь в любое время узнать текущую стоимость, не дожидаясь следующей рассылки! Для этого нажми на кнопку \n📉 Текущая цена\n\nЧтобы узнать, от какой суммы отталкивается триггер, жми \n📈 Триггерная цена \n\nЕсли клавиатура пропала, пиши восклицательный знак !", reply_markup=keyboard_markup)
-    localDB.database.append(message.from_user.id)
+    #localDB.database.append(message.from_user.id)
+    if message.from_user.id not in localDB.database: localDB.database.append(message.from_user.id)
     await bot.send_message(message.from_user.id, 'Твой ID: ' + str(message.from_user.id))
 
 
