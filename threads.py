@@ -105,7 +105,7 @@ async def broadcastInvesting(sleep_for, trigger):
 
         print("broadcast сработал")
 
-async def check_triggers(sleep_for, trigger):
+async def check_triggers(sleep_for, trigger, triggerInv):
     while True:
         await asyncio.sleep(sleep_for)
         # -------------FINANZ--------------
@@ -122,6 +122,20 @@ async def check_triggers(sleep_for, trigger):
             if err:
                 await broadcaster(err)
         localDB.trigger_price = trigger.get_current_price()
+        # -------------Investing--------------
+        error_cur = triggerInv.trgger_currency()
+        for err in error_cur:
+            if err:
+                await broadcaster(err)
+        error_met = triggerInv.trgger_metals()
+        for err in error_met:
+            if err:
+                await broadcaster(err)
+        error_mat = triggerInv.trgger_materials()
+        for err in error_mat:
+            if err:
+                await broadcaster(err)
+        localDB.triggerInv_price = triggerInv.get_current_price()
         # ----------------------------
 
         print("check_triggers сработал")
