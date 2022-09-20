@@ -48,10 +48,10 @@ async def start_messaging(message: types.Message):
         print("Триггерная цена")
         print(price)
         print(priceInv)
-        result = '*Стартовая цена*\n\nFINANZ\n'
+        result = '*Стартовая цена*\n\n*FINANZ*\n'
         for key, value in zip(price, price.values()):
             result += (" " + key + ": `" + str(value) + "` \n")
-        result += "INVESTING\n"
+        result += "\n*INVESTING*\n"
         for key, value in zip(priceInv, priceInv.values()):
             result += (" " + key + ": `" + str(value) + "` \n")
         result += '\nПри повышении или понижении этих цен на указанные проценты, сработает триггер!'
