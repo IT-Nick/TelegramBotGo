@@ -53,7 +53,7 @@ async def start_messaging(message: types.Message):
         for key, value in zip(price, price.values()):
             result += (" " + key + ": `" + str(value) + "` \n")
         result += "INVESTING\n"
-         for key, value in zip(priceInv, priceInv.values()):
+        for key, value in zip(priceInv, priceInv.values()):
             result += (" " + key + ": `" + str(value) + "` \n")
         result += '\nПри повышении или понижении этих цен на указанные проценты, сработает триггер!'
         await message.reply(result, reply_markup=keyboard_markup, parse_mode=ParseMode.MARKDOWN)
