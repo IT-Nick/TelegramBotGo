@@ -1,2 +1,2 @@
 from currency.parsingFinanz import ParsingFinanz
-from currency.parsingSPB import ParsingSPB
+from currency.parsingInvesting import ParsingInvesting
