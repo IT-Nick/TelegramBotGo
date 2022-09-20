@@ -16,11 +16,15 @@ def get_users():
 inline_btn_1 = InlineKeyboardButton('finanz.ru', url='https://www.finanz.ru/birzhevyye-tovary/v-realnom-vremeni')
 inline_kb1 = InlineKeyboardMarkup().add(inline_btn_1)
 
+inline_btn_2 = InlineKeyboardButton('investing.com', url='https://ru.investing.com/commodities/metals')
+inline_kb2 = InlineKeyboardMarkup().add(inline_btn_2)
 
-async def send_message(user_id: int, output_text: str, disable_notification: bool = False) -> bool:
+async def send_message(user_id: int, output_text: str, hint: str, disable_notification: bool = False) -> bool:
     try:
-        await bot.send_message(user_id, output_text, disable_notification=disable_notification,
-                               parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
+        if hint == "finanz":
+            await bot.send_message(user_id, output_text, disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
+        elif hint == "investing":
+            await bot.send_message(user_id, output_text, disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
     except exceptions.BotBlocked:
         print(f"Отправка [ID:{user_id}]: заблокирована пользователем")
     except exceptions.ChatNotFound:
@@ -39,11 +43,11 @@ async def send_message(user_id: int, output_text: str, disable_notification: boo
     return False
 
 
-async def broadcaster(text) -> int:
+async def broadcaster(text, hint) -> int:
     count = 0
     try:
         for user_id in get_users():
-            if await send_message(user_id, text):
+            if await send_message(user_id, text, hint):
                 count += 1
             await asyncio.sleep(.05)  # 20 сообщений в секунду (Ограничение телеграмм: 30 сообщений в секунду)
     finally:
@@ -71,11 +75,35 @@ async def broadcast(sleep_for, trigger):
         for key, value in zip(mat, mat.values()):
             result += ("🟰" + key + ": `" + str(value) + "` \n")
         result += "🏷 _(USc/Фунт)_\n"
-        await broadcaster(result)
+        await broadcaster(result, "finanz")
         # ----------------------------
 
         print("broadcast сработал")
 
+        
+async def broadcastInvesting(sleep_for, trigger):
+    while True:
+        await asyncio.sleep(sleep_for)
+        # -------------INVESTING--------------
+        curr = trigger.finanz.get_currency_price()
+        met = trigger.finanz.get_metals_price()
+        mat = trigger.finanz.get_materials_price()
+        print("ТРИГГЕРНАЯ ЦЕНА")
+        print(trigger.get_current_price())
+        result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
+        for key, value in zip(curr, curr.values()):
+            result += ("🟰" + key + ": `" + str(value) + "` \n")
+        result += "🏷 _(RUB)_\n\n🔘 *Драг. Металлы:* ️\n"
+        for key, value in zip(met, met.values()):
+            result += ("🟰" + key + ": `" + str(value) + "` \n")
+        result += "🏷 _(USD/Тройская унция)_\n\n🔘 *Материалы:*️ \n"
+        for key, value in zip(mat, mat.values()):
+            result += ("🟰" + key + ": `" + str(value) + "` \n")
+        result += "🏷 _(USc/Фунт)_\n"
+        await broadcaster(result, "investing")
+        # ----------------------------
+
+        print("broadcast сработал")
 
 async def check_triggers(sleep_for, trigger):
     while True:
