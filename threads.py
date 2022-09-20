@@ -91,15 +91,18 @@ async def broadcastInvesting(sleep_for, trigger):
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
         result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
+        i = 0
+        slash = ['RUB', 'RUB', 'USD', 'USD']
         for key, value in zip(curr, curr.values()):
-            result += (" " + key + ": `" + str(value) + "` \n")
-        result += "🏷 _(RUB)_\n\n🔘 *Драг. Металлы:* ️\n"
+            result += (" " + key + "/" + slash[i] + ": `" + str(value) + "` \n")
+            i += 1
+        result += "\n\n🔘 *Драг. Металлы:* ️\n"
         for key, value in zip(met, met.values()):
             result += (" " + key + ": `" + str(value) + "` \n")
-        result += "🏷 _(USD/Тройская унция)_\n\n🔘 *Материалы:*️ \n"
+        result += "\n\n🔘 *Материалы:*️ \n"
         for key, value in zip(mat, mat.values()):
             result += (" " + key + ": `" + str(value) + "` \n")
-        result += "🏷 _(USc/Фунт)_\n"
+        result += "\n"
         await broadcaster(result, "investing")
         # ----------------------------
 
