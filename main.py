@@ -23,11 +23,13 @@ WEBAPP_PORT = os.getenv('PORT', default=8000)
 async def on_startup(dispatcher):
    interval_broadcast = 20
    interval_triggers = 10
+   interval_investing = 30
    trigger = TriggerFinanz()
    trigger.set_current_price()
    client.register_handlers(dp)
    loop = asyncio.get_event_loop()
    loop.create_task(broadcast(interval_broadcast, trigger))
+   loop.create_task(broadcastInvesting(interval_investing, trigger))
    loop.create_task(check_triggers(interval_triggers, trigger))
    await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
 
