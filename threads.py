@@ -26,17 +26,17 @@ async def send_message(user_id: int, output_text: str, hint: str, disable_notifi
         elif hint == "investing":
             await bot.send_message(user_id, output_text, disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
         elif hint == "triggerFinCur":
-            await bot.send_message(user_id, ("triggerFinCur: " + output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
+            await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #triggerFinanzCurrency"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
         elif hint == "triggerFinMet":
-            await bot.send_message(user_id, ("triggerFinMet: " + output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
+            await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #triggerFinanzMetal"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
         elif hint == "triggerFinMat":
-            await bot.send_message(user_id, ("triggerFinMat: " + output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
+            await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #triggerFinanzMaterial"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
         elif hint == "triggerInvCur":
-            await bot.send_message(user_id, ("triggerInvCur: " + output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
+            await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #triggerInvestingCurrency"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
         elif hint == "triggerInvMet":
-            await bot.send_message(user_id, ("triggerInvMet: " + output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
+            await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #triggerInvestingMetal"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
         elif hint == "triggerInvMat":
-            await bot.send_message(user_id, ("triggerInvMat: " + output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
+            await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text + "\n #triggerInvestingMaterial"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
     except exceptions.BotBlocked:
         print(f"Отправка [ID:{user_id}]: заблокирована пользователем")
     except exceptions.ChatNotFound:
