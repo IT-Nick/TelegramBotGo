@@ -6,10 +6,8 @@ from create import bot
 from database import localDB
 
 
-keyboard_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-
-
 async def command_start(message: types.Message):
+    keyboard_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     more_btns_text = (
         "📉 Текущая цена",
         "📈 Триггерная цена"
@@ -43,7 +41,7 @@ async def start_messaging(message: types.Message):
         for key, value in zip(mat, mat.values()):
             result += (" " + key + ": `" + str(value) + "` \n")
         result += "🏷 _(USc/Фунт)_\n"
-        await message.reply(result, reply_markup=keyboard_markup, parse_mode=ParseMode.MARKDOWN)
+        await message.reply(result, parse_mode=ParseMode.MARKDOWN)
     elif button_text == '📈 Триггерная цена':
         price = localDB.trigger_price
         priceInv = localDB.triggerInv_price
@@ -57,9 +55,7 @@ async def start_messaging(message: types.Message):
         for key, value in zip(priceInv, priceInv.values()):
             result += (" " + key + ": `" + str(value) + "` \n")
         result += '\nПри повышении или понижении этих цен на указанные проценты, сработает триггер!'
-        await message.reply(result, reply_markup=keyboard_markup, parse_mode=ParseMode.MARKDOWN)
-    elif button_text == '!':
-        await message.reply("Открываю клавиатуру...", reply_markup=keyboard_markup)
+        await message.reply(result, parse_mode=ParseMode.MARKDOWN)
 
 
 
