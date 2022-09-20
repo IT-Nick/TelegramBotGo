@@ -67,13 +67,13 @@ async def broadcast(sleep_for, trigger):
         print(trigger.get_current_price())
         result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
         for key, value in zip(curr, curr.values()):
-            result += ("🟰" + key + ": `" + str(value) + "` \n")
+            result += (" " + key + ": `" + str(value) + "` \n")
         result += "🏷 _(RUB)_\n\n🔘 *Драг. Металлы:* ️\n"
         for key, value in zip(met, met.values()):
-            result += ("🟰" + key + ": `" + str(value) + "` \n")
+            result += (" " + key + ": `" + str(value) + "` \n")
         result += "🏷 _(USD/Тройская унция)_\n\n🔘 *Материалы:*️ \n"
         for key, value in zip(mat, mat.values()):
-            result += ("🟰" + key + ": `" + str(value) + "` \n")
+            result += (" " + key + ": `" + str(value) + "` \n")
         result += "🏷 _(USc/Фунт)_\n"
         await broadcaster(result, "finanz")
         # ----------------------------
@@ -92,13 +92,13 @@ async def broadcastInvesting(sleep_for, trigger):
         print(trigger.get_current_price())
         result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
         for key, value in zip(curr, curr.values()):
-            result += ("🟰" + key + ": `" + str(value) + "` \n")
+            result += (" " + key + ": `" + str(value) + "` \n")
         result += "🏷 _(RUB)_\n\n🔘 *Драг. Металлы:* ️\n"
         for key, value in zip(met, met.values()):
-            result += ("🟰" + key + ": `" + str(value) + "` \n")
+            result += (" " + key + ": `" + str(value) + "` \n")
         result += "🏷 _(USD/Тройская унция)_\n\n🔘 *Материалы:*️ \n"
         for key, value in zip(mat, mat.values()):
-            result += ("🟰" + key + ": `" + str(value) + "` \n")
+            result += (" " + key + ": `" + str(value) + "` \n")
         result += "🏷 _(USc/Фунт)_\n"
         await broadcaster(result, "investing")
         # ----------------------------
