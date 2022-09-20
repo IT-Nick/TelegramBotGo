@@ -25,6 +25,18 @@ async def send_message(user_id: int, output_text: str, hint: str, disable_notifi
             await bot.send_message(user_id, output_text, disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
         elif hint == "investing":
             await bot.send_message(user_id, output_text, disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
+        elif hint == "triggerFinCur":
+            await bot.send_message(user_id, ("triggerFinCur: " + output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
+        elif hint == "triggerFinMet":
+            await bot.send_message(user_id, ("triggerFinMet: " + output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
+        elif hint == "triggerFinMat":
+            await bot.send_message(user_id, ("triggerFinMat: " + output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
+        elif hint == "triggerInvCur":
+            await bot.send_message(user_id, ("triggerInvCur: " + output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
+        elif hint == "triggerInvMet":
+            await bot.send_message(user_id, ("triggerInvMet: " + output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
+        elif hint == "triggerInvMat":
+            await bot.send_message(user_id, ("triggerInvMat: " + output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
     except exceptions.BotBlocked:
         print(f"Отправка [ID:{user_id}]: заблокирована пользователем")
     except exceptions.ChatNotFound:
@@ -115,29 +127,29 @@ async def check_triggers(sleep_for, trigger, triggerInv):
         error_cur = trigger.trgger_currency()
         for err in error_cur:
             if err:
-                await broadcaster(err)
+                await broadcaster(err, "triggerFinCur")
         error_met = trigger.trgger_metals()
         for err in error_met:
             if err:
-                await broadcaster(err)
+                await broadcaster(err, "triggerFinMet")
         error_mat = trigger.trgger_materials()
         for err in error_mat:
             if err:
-                await broadcaster(err)
+                await broadcaster(err, "triggerFinMat")
         localDB.trigger_price = trigger.get_current_price()
         # -------------Investing--------------
         error_cur = triggerInv.trgger_currency()
         for err in error_cur:
             if err:
-                await broadcaster(err)
+                await broadcaster(err, "triggerInvCur")
         error_met = triggerInv.trgger_metals()
         for err in error_met:
             if err:
-                await broadcaster(err)
+                await broadcaster(err, "triggerInvMet")
         error_mat = triggerInv.trgger_materials()
         for err in error_mat:
             if err:
-                await broadcaster(err)
+                await broadcaster(err, "triggerInvMat")
         localDB.triggerInv_price = triggerInv.get_current_price()
         # ----------------------------
 
