@@ -1,1 +1,1 @@
-from triggers import triggerFinanz
+from triggers import triggerFinanz, triggerInvesting
