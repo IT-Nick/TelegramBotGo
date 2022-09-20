@@ -3,7 +3,7 @@ import os
 from aiogram.utils import executor
 from create import dp, TOKEN, bot
 from handlers import client
-from threads import check_triggers, broadcast
+from threads import check_triggers, broadcast, broadcastInvesting
 from aiogram import asyncio
 from triggers.triggerFinanz import TriggerFinanz
 from aiogram.utils.executor import start_webhook
