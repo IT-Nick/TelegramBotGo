@@ -51,7 +51,7 @@ class ParsingTrading:
             total_price = element_curr.text.replace("Т", "").replace(" ", "").replace(",", ".")
             print(currency_code + ": " + total_price)
             results_curr[currency_code] = total_price
-        return results_met
+        return results_curr
 
     def get_materials_price(self):
         results_curr = {}
@@ -63,4 +63,4 @@ class ParsingTrading:
             total_price = element_curr.text.replace("Т", "").replace(" ", "").replace(",", ".")
             print(currency_code + ": " + total_price)
             results_curr[currency_code] = total_price
-        return results_mat
+        return results_curr
