@@ -2,7 +2,6 @@ database = [12354, 12312322]
 trigger_price = {}
 triggerInv_price = {}
 
-triggerOne_price = {}
-triggerTwo_price = {}
-triggerThree_price = {}
-triggerFull_price = {}
+triggerFull_price_finanz = {}
+triggerFull_price_investing = {}
+triggerFull_price_trading = {}
