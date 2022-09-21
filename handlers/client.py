@@ -8,10 +8,7 @@ from database import localDB
 
 async def command_start(message: types.Message):
     keyboard_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    more_btns_text = (
-        "📉 Текущая цена"
-    )
-    keyboard_markup.add(*(types.KeyboardButton(text) for text in more_btns_text))
+    keyboard_markup.add("📉 Текущая цена")
 
     await message.reply("Добрый день! 👋\nВы были подключены к общей рассылке отдела Закупок в России по рыночным индексам!\n\nВы можете получать актуальную информацию раз в сутки об изменениях основных факторов, влияющих на цену у поставщиков 📉", reply_markup=keyboard_markup)
     #localDB.database.append(message.from_user.id)
