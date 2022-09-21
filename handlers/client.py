@@ -24,6 +24,7 @@ async def start_messaging(message: types.Message):
     button_text = message.text
 
     if button_text == '📉 Текущая цена':
+        await message.reply("🔄 Считываем данные..", parse_mode=ParseMode.MARKDOWN)
         parser_finanz = ParsingFinanz()
         parser_investing = ParsingInvesting()
         parser_trading = ParsingTrading()
