@@ -214,6 +214,7 @@ async def broadcastTrade(sleep_for, trigger):
                 result += (" " + key + ": `" + str(value) + "` \n")
             result += "🏷 _(USc/Фунт)_\n"
             await broadcaster(result, "trading")
+            counter += 1
         else:
             result = '*Биржевая информация за 4 недели*                   🧷\n\n'
             for key, value in zip(localDB.triggerFull_price_trading, localDB.triggerFull_price_trading.values()):
