@@ -35,7 +35,7 @@ class ParsingTrading:
         full_page = requests.get(self.BASE_URL + extra_url, headers=self.headers)
         soup = bs(full_page.content, "html.parser")
         for currency_code in self.CURRENCY_CODES.keys():
-            element_curr = soup.find_all("table", {"class": "table table-hover sortable-theme-minimal table-heatmap")[1].find_all("td", {"id": "p"})[self.CURRENCY_CODES.get(currency_code)]
+            element_curr = soup.find_all("table", {"class": "table table-hover sortable-theme-minimal table-heatmap"})[1].find_all("td", {"id": "p"})[self.CURRENCY_CODES.get(currency_code)]
             total_price = element_curr.text.replace("Т", "").replace(" ", "").replace(",", ".")
             print(currency_code + ": " + total_price)
             results_curr[currency_code] = total_price
@@ -47,7 +47,7 @@ class ParsingTrading:
         full_page = requests.get(self.BASE_URL + extra_url, headers=self.headers)
         soup = bs(full_page.content, "html.parser")
         for currency_code in self.CURRENCY_CODES.keys():
-            element_curr = soup.find_all("table", {"class": "table table-hover sortable-theme-minimal table-heatmap")[1].find_all("td", {"id": "p"})[self.CURRENCY_CODES.get(currency_code)]
+            element_curr = soup.find_all("table", {"class": "table table-hover sortable-theme-minimal table-heatmap"})[1].find_all("td", {"id": "p"})[self.CURRENCY_CODES.get(currency_code)]
             total_price = element_curr.text.replace("Т", "").replace(" ", "").replace(",", ".")
             print(currency_code + ": " + total_price)
             results_curr[currency_code] = total_price
@@ -59,7 +59,7 @@ class ParsingTrading:
         full_page = requests.get(self.BASE_URL + extra_url, headers=self.headers)
         soup = bs(full_page.content, "html.parser")
         for currency_code in self.CURRENCY_CODES.keys():
-            element_curr = soup.find_all("table", {"class": "table table-hover sortable-theme-minimal table-heatmap")[1].find_all("td", {"id": "p"})[self.CURRENCY_CODES.get(currency_code)]
+            element_curr = soup.find_all("table", {"class": "table table-hover sortable-theme-minimal table-heatmap"})[1].find_all("td", {"id": "p"})[self.CURRENCY_CODES.get(currency_code)]
             total_price = element_curr.text.replace("Т", "").replace(" ", "").replace(",", ".")
             print(currency_code + ": " + total_price)
             results_curr[currency_code] = total_price
