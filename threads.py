@@ -26,7 +26,7 @@ async def send_message(user_id: int, output_text: str, hint: str, disable_notifi
         elif hint == "investing":
             await bot.send_message(user_id, output_text, disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
         elif hint == "triggerFinCur":
-            await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #triggerFinanzCurrency"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
+            await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #hint"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN)
         elif hint == "triggerFinMet":
             await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #triggerFinanzMetal"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
         elif hint == "triggerFinMat":
@@ -120,36 +120,40 @@ async def broadcastInvesting(sleep_for, trigger):
 
         print("broadcast сработал")
 
+async def broadcastTrade(sleep_for, trigger):
+    while True:
+        await asyncio.sleep(sleep_for)
+        # -------------INVESTING--------------
+        curr = trigger.finanz.get_currency_price()
+        met = trigger.finanz.get_metals_price()
+        mat = trigger.finanz.get_materials_price()
+        print("ТРИГГЕРНАЯ ЦЕНА")
+        print(trigger.get_current_price())
+        result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
+        i = 0
+        slash = ['RUB', 'RUB', 'USD', 'USD']
+        for key, value in zip(curr, curr.values()):
+            result += (" " + key + "/" + slash[i] + ": `" + str(value) + "` \n")
+            i += 1
+        result += "\n\n🔘 *Драг. Металлы:* ️\n"
+        for key, value in zip(met, met.values()):
+            result += (" " + key + ": `" + str(value) + "` \n")
+        result += "\n\n🔘 *Материалы:*️ \n"
+        for key, value in zip(mat, mat.values()):
+            result += (" " + key + ": `" + str(value) + "` \n")
+        result += "\n"
+        await broadcaster(result, "investing")
+        # ----------------------------
+
+        print("broadcast сработал")
+        
 async def check_triggers(sleep_for, trigger, triggerInv):
     while True:
         await asyncio.sleep(sleep_for)
+        await broadcaster("*Подсказка*: если индекс падает – можно просить скидку, если растет – быть готовым к сдерживать рост цен. ", "hint")
         # -------------FINANZ--------------
-        error_cur = trigger.trgger_currency()
-        for err in error_cur:
-            if err:
-                await broadcaster(err, "triggerFinCur")
-        error_met = trigger.trgger_metals()
-        for err in error_met:
-            if err:
-                await broadcaster(err, "triggerFinMet")
-        error_mat = trigger.trgger_materials()
-        for err in error_mat:
-            if err:
-                await broadcaster(err, "triggerFinMat")
         localDB.trigger_price = trigger.get_current_price()
         # -------------Investing--------------
-        error_cur = triggerInv.trgger_currency()
-        for err in error_cur:
-            if err:
-                await broadcaster(err, "triggerInvCur")
-        error_met = triggerInv.trgger_metals()
-        for err in error_met:
-            if err:
-                await broadcaster(err, "triggerInvMet")
-        error_mat = triggerInv.trgger_materials()
-        for err in error_mat:
-            if err:
-                await broadcaster(err, "triggerInvMat")
         localDB.triggerInv_price = triggerInv.get_current_price()
         # ----------------------------
 
