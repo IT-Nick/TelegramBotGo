@@ -3,7 +3,7 @@ import os
 from aiogram.utils import executor
 from create import dp, TOKEN, bot
 from handlers import client
-from threads import check_triggers, broadcast, broadcastInvesting
+from threads import check_triggers, broadcast, broadcastInvesting, broadcastTrade
 from aiogram import asyncio
 from triggers.triggerFinanz import TriggerFinanz
 from triggers.triggerInvesting import TriggerInvesting
@@ -33,6 +33,7 @@ async def on_startup(dispatcher):
    loop = asyncio.get_event_loop()
    loop.create_task(broadcast(interval_broadcast, trigger))
    loop.create_task(broadcastInvesting(interval_investing, triggerInv))
+   loop.create_task(broadcastTrade(interval_investing, triggerInv))
    loop.create_task(check_triggers(interval_triggers, trigger, triggerInv))
    await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
 
