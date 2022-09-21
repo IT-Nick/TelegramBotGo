@@ -29,11 +29,11 @@ async def send_message(user_id: int, output_text: str, hint: str, disable_notifi
         elif hint == "investing":
             await bot.send_message(user_id, output_text, disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
         elif hint == "hint":
-            await bot.send_message(user_id, output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN)
+            await bot.send_message(user_id, output_text, disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN)
         elif hint == "trading":
-            await bot.send_message(user_id, output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb3)
+            await bot.send_message(user_id, output_text, disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb3)
         elif hint == "triggerFinMat":
-            await bot.send_message(user_id,output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
+            await bot.send_message(user_id,output_text, disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
         elif hint == "triggerInvCur":
             await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #triggerInvestingCurrency"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
         elif hint == "triggerInvMet":
