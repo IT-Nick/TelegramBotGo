@@ -19,18 +19,21 @@ inline_kb1 = InlineKeyboardMarkup().add(inline_btn_1)
 inline_btn_2 = InlineKeyboardButton('investing.com', url='https://ru.investing.com/commodities/metals')
 inline_kb2 = InlineKeyboardMarkup().add(inline_btn_2)
 
+inline_btn_3 = InlineKeyboardButton('tradingeconomics.com', url='https://tradingeconomics.com/russia/forecast')
+inline_kb3 = InlineKeyboardMarkup().add(inline_btn_3)
+
 async def send_message(user_id: int, output_text: str, hint: str, disable_notification: bool = False) -> bool:
     try:
         if hint == "finanz":
             await bot.send_message(user_id, output_text, disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
         elif hint == "investing":
             await bot.send_message(user_id, output_text, disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
-        elif hint == "triggerFinCur":
-            await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #hint"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN)
-        elif hint == "triggerFinMet":
-            await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #triggerFinanzMetal"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
+        elif hint == "hint":
+            await bot.send_message(user_id, output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN)
+        elif hint == "trading":
+            await bot.send_message(user_id, output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb3)
         elif hint == "triggerFinMat":
-            await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #triggerFinanzMaterial"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
+            await bot.send_message(user_id,output_text), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb1)
         elif hint == "triggerInvCur":
             await bot.send_message(user_id, ("⚠️Сработал триггер! \n" + output_text+ "\n #triggerInvestingCurrency"), disable_notification=disable_notification, parse_mode=ParseMode.MARKDOWN, reply_markup=inline_kb2)
         elif hint == "triggerInvMet":
@@ -69,80 +72,107 @@ async def broadcaster(text, hint) -> int:
 
 
 async def broadcast(sleep_for, trigger):
+    counter = 0
     while True:
         await asyncio.sleep(sleep_for)
         # -------------FINANZ--------------
         curr = trigger.finanz.get_currency_price()
         met = trigger.finanz.get_metals_price()
         mat = trigger.finanz.get_materials_price()
+        localDB.triggerFull_price_finanz.update(curr)
+        localDB.triggerFull_price_finanz.update(met)
+        localDB.triggerFull_price_finanz.update(mat)
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
-        result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
-        for key, value in zip(curr, curr.values()):
-            result += (" " + key + ": `" + str(value) + "` \n")
-        result += "🏷 _(RUB)_\n\n🔘 *Драг. Металлы:* ️\n"
-        for key, value in zip(met, met.values()):
-            result += (" " + key + ": `" + str(value) + "` \n")
-        result += "🏷 _(USD/Тройская унция)_\n\n🔘 *Материалы:*️ \n"
-        for key, value in zip(mat, mat.values()):
-            result += (" " + key + ": `" + str(value) + "` \n")
-        result += "🏷 _(USc/Фунт)_\n"
-        await broadcaster(result, "finanz")
+        if counter < 4:
+            result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
+            for key, value in zip(curr, curr.values()):
+                result += (" " + key + ": `" + str(value) + "` \n")
+            result += "🏷 _(RUB)_\n\n🔘 *Драг. Металлы:* ️\n"
+            for key, value in zip(met, met.values()):
+                result += (" " + key + ": `" + str(value) + "` \n")
+            result += "🏷 _(USD/Тройская унция)_\n\n🔘 *Материалы:*️ \n"
+            for key, value in zip(mat, mat.values()):
+                result += (" " + key + ": `" + str(value) + "` \n")
+            result += "🏷 _(USc/Фунт)_\n"
+            await broadcaster(result, "finanz")
+            counter += 1
+        else:
+            await broadcaster(localDB.triggerFull_price_finanz, "finanz")
+            counter = 0
+            
         # ----------------------------
 
         print("broadcast сработал")
 
         
 async def broadcastInvesting(sleep_for, trigger):
+    counter = 0
     while True:
         await asyncio.sleep(sleep_for)
         # -------------INVESTING--------------
         curr = trigger.finanz.get_currency_price()
         met = trigger.finanz.get_metals_price()
         mat = trigger.finanz.get_materials_price()
+        localDB.triggerFull_price_investing.update(curr)
+        localDB.triggerFull_price_investing.update(met)
+        localDB.triggerFull_price_investing.update(mat)
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
-        result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
-        i = 0
-        slash = ['RUB', 'RUB', 'USD', 'USD']
-        for key, value in zip(curr, curr.values()):
-            result += (" " + key + "/" + slash[i] + ": `" + str(value) + "` \n")
-            i += 1
-        result += "\n\n🔘 *Драг. Металлы:* ️\n"
-        for key, value in zip(met, met.values()):
-            result += (" " + key + ": `" + str(value) + "` \n")
-        result += "\n\n🔘 *Материалы:*️ \n"
-        for key, value in zip(mat, mat.values()):
-            result += (" " + key + ": `" + str(value) + "` \n")
-        result += "\n"
-        await broadcaster(result, "investing")
+        if counter < 4:
+            result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
+            i = 0
+            slash = ['RUB', 'RUB', 'USD', 'USD']
+            for key, value in zip(curr, curr.values()):
+                result += (" " + key + "/" + slash[i] + ": `" + str(value) + "` \n")
+                i += 1
+            result += "\n\n🔘 *Драг. Металлы:* ️\n"
+            for key, value in zip(met, met.values()):
+                result += (" " + key + ": `" + str(value) + "` \n")
+            result += "\n\n🔘 *Материалы:*️ \n"
+            for key, value in zip(mat, mat.values()):
+                result += (" " + key + ": `" + str(value) + "` \n")
+            result += "\n"
+            await broadcaster(result, "investing")
+            counter += 1
+        else:
+            await broadcaster(localDB.triggerFull_price_investing, "investing")
+            counter = 0
         # ----------------------------
 
         print("broadcast сработал")
 
 async def broadcastTrade(sleep_for, trigger):
+    counter = 0
     while True:
         await asyncio.sleep(sleep_for)
         # -------------INVESTING--------------
         curr = trigger.finanz.get_currency_price()
         met = trigger.finanz.get_metals_price()
         mat = trigger.finanz.get_materials_price()
+        localDB.triggerFull_price_trading.update(curr)
+        localDB.triggerFull_price_trading.update(met)
+        localDB.triggerFull_price_trading.update(mat)
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
-        result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
-        i = 0
-        slash = ['RUB', 'RUB', 'USD', 'USD']
-        for key, value in zip(curr, curr.values()):
-            result += (" " + key + "/" + slash[i] + ": `" + str(value) + "` \n")
-            i += 1
-        result += "\n\n🔘 *Драг. Металлы:* ️\n"
-        for key, value in zip(met, met.values()):
-            result += (" " + key + ": `" + str(value) + "` \n")
-        result += "\n\n🔘 *Материалы:*️ \n"
-        for key, value in zip(mat, mat.values()):
-            result += (" " + key + ": `" + str(value) + "` \n")
-        result += "\n"
-        await broadcaster(result, "investing")
+        if counter < 4:
+            result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
+            i = 0
+            slash = ['RUB', 'RUB', 'USD', 'USD']
+            for key, value in zip(curr, curr.values()):
+                result += (" " + key + "/" + slash[i] + ": `" + str(value) + "` \n")
+                i += 1
+            result += "\n\n🔘 *Драг. Металлы:* ️\n"
+            for key, value in zip(met, met.values()):
+                result += (" " + key + ": `" + str(value) + "` \n")
+            result += "\n\n🔘 *Материалы:*️ \n"
+            for key, value in zip(mat, mat.values()):
+                result += (" " + key + ": `" + str(value) + "` \n")
+            result += "\n"
+            await broadcaster(result, "investing")
+        else:
+            await broadcaster(localDB.triggerFull_price_trading, "trading")
+            counter = 0
         # ----------------------------
 
         print("broadcast сработал")
