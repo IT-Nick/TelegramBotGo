@@ -128,7 +128,7 @@ async def broadcast(sleep_for, trigger):
         
 async def broadcastInvesting(sleep_for, trigger):
     counter = 0
-    weeks = ["/WEEK1", "/WEEK2" ,"/WEEK3", "/WEEK4"]
+    weeks = ["1", "2" ,"3", "4"]
     while True:
         await asyncio.sleep(sleep_for)
         # -------------INVESTING--------------
@@ -138,15 +138,15 @@ async def broadcastInvesting(sleep_for, trigger):
         mounth = localDB.triggerFull_price_investing
         curres = {}
         for key, value in zip(curr, curr.values()):
-            curres[key + weeks[counter]] = value  
+            curres[weeks[counter] + key] = value  
         mounth.update(curres)
         metres = {}
         for key, value in zip(met, met.values()):
-            metres[key + weeks[counter]] = value  
+            metres[weeks[counter] + key] = value  
         mounth.update(metres)
         matres = {}
         for key, value in zip(mat, mat.values()):
-            matres[key + weeks[counter]] = value  
+            matres[weeks[counter] + key] = value  
         mounth.update(matres)
         localDB.triggerFull_price_investing = mounth
         print("ТРИГГЕРНАЯ ЦЕНА")
