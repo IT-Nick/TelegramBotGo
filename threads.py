@@ -233,7 +233,7 @@ async def broadcastTrade(sleep_for, trigger):
 async def check_triggers(sleep_for, trigger, triggerInv):
     while True:
         await asyncio.sleep(sleep_for)
-        await broadcaster("*Подсказка*: если индекс падает – можно просить скидку, если растет – быть готовым к сдерживать рост цен. ", "hint")
+        await broadcaster("*Подсказка*: если индекс падает – можно просить скидку, если растет – быть готовым сдерживать рост цен. ", "hint")
         # -------------FINANZ--------------
         localDB.trigger_price = trigger.get_current_price()
         # -------------Investing--------------
