@@ -16,8 +16,8 @@ class ParsingTrading:
     }
 
     CORE_CODES = {
-        'Core Inflation Rate': 20,
-        'Food Inflation': 40
+        'Core Inflation Rate': 21,
+        'Food Inflation': 41
     }
 
     FOOD_CODES = {
