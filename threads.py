@@ -113,7 +113,10 @@ async def broadcast(sleep_for, trigger):
             await broadcaster(result, "finanz")
             counter += 1
         else:
-            await broadcaster(localDB.triggerFull_price_finanz, "finanz")
+            result = '*Биржевая информация за 4 недели*                   🧷\n\n'
+            for key, value in zip(localDB.triggerFull_price_finanz, localDB.triggerFull_price_finanz.values()):
+                result += (" " + key + ": `" + str(value) + "` \n")
+            await broadcaster(result, "finanz")
             localDB.triggerFull_price_finanz = {}
             counter -= 3
             
@@ -164,7 +167,10 @@ async def broadcastInvesting(sleep_for, trigger):
             await broadcaster(result, "investing")
             counter += 1
         else:
-            await broadcaster(localDB.triggerFull_price_investing, "investing")
+            result = '*Биржевая информация за 4 недели*                   🧷\n\n'
+            for key, value in zip(localDB.triggerFull_price_investing, localDB.triggerFull_price_investing.values()):
+                result += (" " + key + ": `" + str(value) + "` \n")
+            await broadcaster(result, "investing")
             localDB.triggerFull_price_investing = {}
             counter -= 3
         # ----------------------------
@@ -209,7 +215,10 @@ async def broadcastTrade(sleep_for, trigger):
             result += "🏷 _(USc/Фунт)_\n"
             await broadcaster(result, "trading")
         else:
-            await broadcaster(localDB.triggerFull_price_trading, "trading")
+            result = '*Биржевая информация за 4 недели*                   🧷\n\n'
+            for key, value in zip(localDB.triggerFull_price_trading, localDB.triggerFull_price_trading.values()):
+                result += (" " + key + ": `" + str(value) + "` \n")
+            await broadcaster(result, "trading")
             localDB.triggerFull_price_trading = {}
             counter -= 3
         # ----------------------------
