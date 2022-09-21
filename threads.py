@@ -70,13 +70,6 @@ async def broadcaster(text, hint) -> int:
 
     return count  # кол-во отправленных сообщений
 
-def merge(dict, hints):
-    if hints == "finanz":
-        localDB.triggerFull_price_finanz = {**localDB.triggerFull_price_finanz, **dict}
-    if hints == "investing":
-        localDB.triggerFull_price_investing = {**localDB.triggerFull_price_investing, **dict}
-    if hints == "trading":
-        localDB.triggerFull_price_trading = {**localDB.triggerFull_price_trading, **dict}
         
 async def broadcast(sleep_for, trigger):
     counter = 0
@@ -86,9 +79,11 @@ async def broadcast(sleep_for, trigger):
         curr = trigger.finanz.get_currency_price()
         met = trigger.finanz.get_metals_price()
         mat = trigger.finanz.get_materials_price()
-        merge(curr, "finanz")
-        merge(met, "finanz")
-        merge(mat, "finanz")
+        mounth = localDB.triggerFull_price_finanz
+        mounth.update(curr)
+        mounth.update(met)
+        mounth.update(mat)
+        localDB.triggerFull_price_finanz = mounth
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
         if counter < 4:
@@ -106,7 +101,7 @@ async def broadcast(sleep_for, trigger):
             counter += 1
         else:
             await broadcaster(localDB.triggerFull_price_finanz, "finanz")
-            localDB.triggerFull_price_finanz.update({})
+            localDB.triggerFull_price_finanz = {}
             counter = 0
             
         # ----------------------------
@@ -122,9 +117,11 @@ async def broadcastInvesting(sleep_for, trigger):
         curr = trigger.finanz.get_currency_price()
         met = trigger.finanz.get_metals_price()
         mat = trigger.finanz.get_materials_price()
-        merge(curr, "investing")
-        merge(met, "investing")
-        merge(mat, "investing")
+        mounth = localDB.triggerFull_price_investing
+        mounth.update(curr)
+        mounth.update(met)
+        mounth.update(mat)
+        localDB.triggerFull_price_investing = mounth
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
         if counter < 4:
@@ -145,7 +142,7 @@ async def broadcastInvesting(sleep_for, trigger):
             counter += 1
         else:
             await broadcaster(localDB.triggerFull_price_investing, "investing")
-            localDB.triggerFull_price_investing.update({})
+            localDB.triggerFull_price_investing = {}
             counter = 0
         # ----------------------------
 
@@ -159,9 +156,11 @@ async def broadcastTrade(sleep_for, trigger):
         curr = trigger.finanz.get_currency_price()
         met = trigger.finanz.get_metals_price()
         mat = trigger.finanz.get_materials_price()
-        merge(curr, "trading")
-        merge(met, "trading")
-        merge(mat, "trading")
+        mounth = localDB.triggerFull_price_trading
+        mounth.update(curr)
+        mounth.update(met)
+        mounth.update(mat)
+        localDB.triggerFull_price_trading = mounth
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
         if counter < 4:
@@ -175,10 +174,10 @@ async def broadcastTrade(sleep_for, trigger):
             for key, value in zip(mat, mat.values()):
                 result += (" " + key + ": `" + str(value) + "` \n")
             result += "🏷 _(USc/Фунт)_\n"
-            await broadcaster(result, "investing")
+            await broadcaster(result, "trading")
         else:
             await broadcaster(localDB.triggerFull_price_trading, "trading")
-            localDB.triggerFull_price_trading.update({})
+            localDB.triggerFull_price_trading = {}
             counter = 0
         # ----------------------------
 
