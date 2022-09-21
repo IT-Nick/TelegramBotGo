@@ -46,7 +46,7 @@ async def start_messaging(message: types.Message):
         metI = parser_investing.get_metals_price()
         matI = parser_investing.get_materials_price()
         
-        result += '\n🔘 *investing.com*\n🔘 *Валюта*\n'
+        result += '\n*investing.com*\n🔘 *Валюта*\n'
         i = 0
         slash = ['RUB', 'RUB', 'USD', 'USD']
         for key, value in zip(currI, currI.values()):
@@ -64,7 +64,7 @@ async def start_messaging(message: types.Message):
         metT = parser_trading.get_metals_price()
         matT = parser_trading.get_materials_price()
         
-        result += '\n🔘 *tradingeconomics.com*\n🔘 *Валюта*\n'
+        result += '\n*tradingeconomics.com*\n🔘 *Валюта*\n'
         for key, value in zip(currT, currT.values()):
             result += (" " + key + ": `" + str(value) + "` \n")
         result += "🏷 _(RUB)_\n🔘 *Драг. Металлы:* ️\n"
