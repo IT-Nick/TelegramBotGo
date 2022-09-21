@@ -99,7 +99,7 @@ async def broadcast(sleep_for, trigger):
         print(counter)
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
-        if counter < 4:
+        if counter <= 4:
             result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
             for key, value in zip(curr, curr.values()):
                 result += (" " + key + ": `" + str(value) + "` \n")
@@ -147,7 +147,7 @@ async def broadcastInvesting(sleep_for, trigger):
         localDB.triggerFull_price_investing = mounth
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
-        if counter < 4:
+        if counter <= 4:
             result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
             i = 0
             slash = ['RUB', 'RUB', 'USD', 'USD']
@@ -196,7 +196,7 @@ async def broadcastTrade(sleep_for, trigger):
         localDB.triggerFull_price_trading = mounth
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
-        if counter < 4:
+        if counter <= 4:
             result = '*Биржевая информация*                           🧷\n\n🔘 *Валюта:*\n'
             for key, value in zip(curr, curr.values()):
                 result += (" " + key + ": `" + str(value) + "` \n")
