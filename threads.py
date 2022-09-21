@@ -77,8 +77,7 @@ def merge(dict, hints):
         localDB.triggerFull_price_investing = {**localDB.triggerFull_price_investing, **dict}
     if hints == "trading":
         localDB.triggerFull_price_trading = {**localDB.triggerFull_price_trading, **dict}
-    return res
-
+        
 async def broadcast(sleep_for, trigger):
     counter = 0
     while True:
@@ -90,7 +89,6 @@ async def broadcast(sleep_for, trigger):
         merge(curr, "finanz")
         merge(met, "finanz")
         merge(mat, "finanz")
-        z = {**dis, **dic} 
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
         if counter < 4:
