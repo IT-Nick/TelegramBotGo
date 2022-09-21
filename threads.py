@@ -158,10 +158,10 @@ async def broadcastInvesting(sleep_for, trigger):
             for key, value in zip(curr, curr.values()):
                 result += (" " + key + "/" + slash[i] + ": `" + str(value) + "` \n")
                 i += 1
-            result += "\n\n🔘 *Драг. Металлы:* ️\n"
+            result += "\n\n🔘 *Core/Food Inflation rate:* ️\n"
             for key, value in zip(met, met.values()):
                 result += (" " + key + ": `" + str(value) + "` \n")
-            result += "\n\n🔘 *Материалы:*️ \n"
+            result += "\n\n🔘 *Gasoline prices:*️ \n"
             for key, value in zip(mat, mat.values()):
                 result += (" " + key + ": `" + str(value) + "` \n")
             result += "\n"
