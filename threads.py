@@ -72,11 +72,11 @@ async def broadcaster(text, hint) -> int:
 
 def merge(dict, hints):
     if hints == "finanz":
-        res = {**localDB.triggerFull_price_finanz, **dict}
+        localDB.triggerFull_price_finanz = {**localDB.triggerFull_price_finanz, **dict}
     if hints == "investing":
-        res = {**localDB.triggerFull_price_investing, **dict}
+        localDB.triggerFull_price_investing = {**localDB.triggerFull_price_investing, **dict}
     if hints == "trading":
-        res = {**localDB.triggerFull_price_trading, **dict}
+        localDB.triggerFull_price_trading = {**localDB.triggerFull_price_trading, **dict}
     return res
 
 async def broadcast(sleep_for, trigger):
