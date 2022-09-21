@@ -23,10 +23,10 @@ WEBAPP_HOST = '0.0.0.0'
 WEBAPP_PORT = os.getenv('PORT', default=8000)
 
 async def on_startup(dispatcher):
-   interval_broadcast = 20
-   interval_triggers = 10
-   interval_Trade = 4
-   interval_investing = 30
+   interval_broadcast = 4
+   interval_triggers = 40
+   interval_Trade = 100
+   interval_investing = 100
    trigger = TriggerFinanz()
    trigger.set_current_price()
    triggerInv = TriggerInvesting()
