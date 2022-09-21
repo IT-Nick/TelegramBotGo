@@ -94,6 +94,9 @@ async def broadcast(sleep_for, trigger):
             matres[key + weeks[counter]] = value  
         mounth.update(matres)
         localDB.triggerFull_price_finanz = mounth
+        print("-----------------------------------------DEBUG\n")
+        print(mounth)
+        print(counter)
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
         if counter < 4:
