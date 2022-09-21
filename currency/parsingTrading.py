@@ -20,10 +20,6 @@ class ParsingTrading:
         'Food Inflation': 41
     }
 
-    FOOD_CODES = {
-        'Хлопок': "pid-8851-last"
-    }
-
     GASOLINE_CODES = {
         'Хлопок': "pid-8851-last"
     }
