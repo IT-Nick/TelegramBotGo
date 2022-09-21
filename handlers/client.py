@@ -74,6 +74,7 @@ async def start_messaging(message: types.Message):
         for key, value in zip(matT, matT.values()):
             result += (" " + key + ": `" + str(value) + "` \n")
         result += "🏷 _(USc/Фунт)_\n"
+        
         await message.reply(result, parse_mode=ParseMode.MARKDOWN)
 
 
