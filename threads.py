@@ -73,6 +73,7 @@ async def broadcaster(text, hint) -> int:
         
 async def broadcast(sleep_for, trigger):
     counter = 0
+    weeks = {"/WEEK1", "/WEEK2" ,"/WEEK3", "/WEEK4"}
     while True:
         await asyncio.sleep(sleep_for)
         # -------------FINANZ--------------
@@ -80,9 +81,18 @@ async def broadcast(sleep_for, trigger):
         met = trigger.finanz.get_metals_price()
         mat = trigger.finanz.get_materials_price()
         mounth = localDB.triggerFull_price_finanz
-        mounth.update(curr)
-        mounth.update(met)
-        mounth.update(mat)
+        curres = {}
+        for key, value in zip(curr, curr.values()):
+            curres[key + weeks[counter]] = value  
+        mounth.update(curres)
+        metres = {}
+        for key, value in zip(met, met.values()):
+            metres[key + weeks[counter]] = value  
+        mounth.update(metres)
+        matres = {}
+        for key, value in zip(mat, mat.values()):
+            matres[key + weeks[counter]] = value  
+        mounth.update(matres)
         localDB.triggerFull_price_finanz = mounth
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
@@ -111,6 +121,7 @@ async def broadcast(sleep_for, trigger):
         
 async def broadcastInvesting(sleep_for, trigger):
     counter = 0
+    weeks = {"/WEEK1", "/WEEK2" ,"/WEEK3", "/WEEK4"}
     while True:
         await asyncio.sleep(sleep_for)
         # -------------INVESTING--------------
@@ -118,9 +129,18 @@ async def broadcastInvesting(sleep_for, trigger):
         met = trigger.finanz.get_metals_price()
         mat = trigger.finanz.get_materials_price()
         mounth = localDB.triggerFull_price_investing
-        mounth.update(curr)
-        mounth.update(met)
-        mounth.update(mat)
+        curres = {}
+        for key, value in zip(curr, curr.values()):
+            curres[key + weeks[counter]] = value  
+        mounth.update(curres)
+        metres = {}
+        for key, value in zip(met, met.values()):
+            metres[key + weeks[counter]] = value  
+        mounth.update(metres)
+        matres = {}
+        for key, value in zip(mat, mat.values()):
+            matres[key + weeks[counter]] = value  
+        mounth.update(matres)
         localDB.triggerFull_price_investing = mounth
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
@@ -150,6 +170,7 @@ async def broadcastInvesting(sleep_for, trigger):
 
 async def broadcastTrade(sleep_for, trigger):
     counter = 0
+    weeks = {"/WEEK1", "/WEEK2" ,"/WEEK3", "/WEEK4"}
     while True:
         await asyncio.sleep(sleep_for)
         # -------------INVESTING--------------
@@ -157,9 +178,18 @@ async def broadcastTrade(sleep_for, trigger):
         met = trigger.finanz.get_metals_price()
         mat = trigger.finanz.get_materials_price()
         mounth = localDB.triggerFull_price_trading
-        mounth.update(curr)
-        mounth.update(met)
-        mounth.update(mat)
+        curres = {}
+        for key, value in zip(curr, curr.values()):
+            curres[key + weeks[counter]] = value  
+        mounth.update(curres)
+        metres = {}
+        for key, value in zip(met, met.values()):
+            metres[key + weeks[counter]] = value  
+        mounth.update(metres)
+        matres = {}
+        for key, value in zip(mat, mat.values()):
+            matres[key + weeks[counter]] = value  
+        mounth.update(matres)
         localDB.triggerFull_price_trading = mounth
         print("ТРИГГЕРНАЯ ЦЕНА")
         print(trigger.get_current_price())
