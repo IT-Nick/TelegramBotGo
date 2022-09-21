@@ -115,7 +115,7 @@ async def broadcast(sleep_for, trigger):
         else:
             await broadcaster(localDB.triggerFull_price_finanz, "finanz")
             localDB.triggerFull_price_finanz = {}
-            counter = 0
+            counter -= 3
             
         # ----------------------------
 
@@ -166,7 +166,7 @@ async def broadcastInvesting(sleep_for, trigger):
         else:
             await broadcaster(localDB.triggerFull_price_investing, "investing")
             localDB.triggerFull_price_investing = {}
-            counter = 0
+            counter -= 3
         # ----------------------------
 
         print("broadcast сработал")
@@ -211,7 +211,7 @@ async def broadcastTrade(sleep_for, trigger):
         else:
             await broadcaster(localDB.triggerFull_price_trading, "trading")
             localDB.triggerFull_price_trading = {}
-            counter = 0
+            counter -= 3
         # ----------------------------
 
         print("broadcast сработал")
