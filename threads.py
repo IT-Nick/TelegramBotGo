@@ -73,7 +73,7 @@ async def broadcaster(text, hint) -> int:
         
 async def broadcast(sleep_for, trigger):
     counter = 0
-    weeks = {"/WEEK1", "/WEEK2" ,"/WEEK3", "/WEEK4"}
+    weeks = ["/WEEK1", "/WEEK2" ,"/WEEK3", "/WEEK4"]
     while True:
         await asyncio.sleep(sleep_for)
         # -------------FINANZ--------------
@@ -121,7 +121,7 @@ async def broadcast(sleep_for, trigger):
         
 async def broadcastInvesting(sleep_for, trigger):
     counter = 0
-    weeks = {"/WEEK1", "/WEEK2" ,"/WEEK3", "/WEEK4"}
+    weeks = ["/WEEK1", "/WEEK2" ,"/WEEK3", "/WEEK4"]
     while True:
         await asyncio.sleep(sleep_for)
         # -------------INVESTING--------------
@@ -170,7 +170,7 @@ async def broadcastInvesting(sleep_for, trigger):
 
 async def broadcastTrade(sleep_for, trigger):
     counter = 0
-    weeks = {"/WEEK1", "/WEEK2" ,"/WEEK3", "/WEEK4"}
+    weeks = ["/WEEK1", "/WEEK2" ,"/WEEK3", "/WEEK4"]
     while True:
         await asyncio.sleep(sleep_for)
         # -------------INVESTING--------------
